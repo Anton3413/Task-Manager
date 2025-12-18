@@ -4,6 +4,7 @@ import com.anton3413.taskmanager.dto.CreateTaskDto;
 import com.anton3413.taskmanager.dto.ResponseTaskDto;
 import com.anton3413.taskmanager.dto.TaskSummaryDto;
 import com.anton3413.taskmanager.mapper.CreateTaskDtoMapper;
+import com.anton3413.taskmanager.mapper.ResponseTaskDtoMapper;
 import com.anton3413.taskmanager.mapper.TaskSummaryDtoMapper;
 import com.anton3413.taskmanager.model.Task;
 import com.anton3413.taskmanager.repository.TaskRepository;
@@ -21,12 +22,12 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final TaskSummaryDtoMapper taskSummaryDtoMapper;
     private final CreateTaskDtoMapper createTaskDtoMapper;
+    private final ResponseTaskDtoMapper responseTaskDtoMapper;
 
     @Override
     public ResponseTaskDto findById(Long id) {
         Task task = taskRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-
-        return null; //taskSummaryDtoMapper.toDto(task);
+        return responseTaskDtoMapper.toDto(task);
     }
 
     @Override

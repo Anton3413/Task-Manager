@@ -2,6 +2,7 @@ package com.anton3413.taskmanager.controller;
 
 
 import com.anton3413.taskmanager.dto.CreateTaskDto;
+import com.anton3413.taskmanager.dto.ResponseTaskDto;
 import com.anton3413.taskmanager.model.Status;
 import com.anton3413.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
@@ -29,10 +30,15 @@ public class TaskController {
         return "tasks";
     }
 
-    /*@GetMapping
-    public String showTaskDetails(@RequestParam Long id){
-        taskService.fin
-    }*/
+    @GetMapping("/{id}")
+    public String showTaskDetails(@PathVariable Long id, Model model){
+
+       ResponseTaskDto taskDto =  taskService.findById(id);
+
+       model.addAttribute("task",taskDto);
+
+       return "task-details";
+    }
 
     @GetMapping("/new")
     public String showCreateTaskPage(Model model){
@@ -49,6 +55,13 @@ public class TaskController {
         }
 
         taskService.save(createTaskDto);
+
+        return "redirect:/tasks";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteTaskById(@PathVariable Long id){
+        taskService.deleteById(id);
 
         return "redirect:/tasks";
     }

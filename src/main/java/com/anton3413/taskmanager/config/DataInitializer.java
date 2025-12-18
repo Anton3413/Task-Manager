@@ -15,14 +15,14 @@ import java.time.LocalDateTime;
 public class DataInitializer implements CommandLineRunner {
 
     private final TaskService taskService;
-    private final CreateTaskDtoMapper createTaskDto;
 
     private static final String EXAMPLE_TASK_TITLE = "Demo Task";
     private static final String EXAMPLE_TASK_DESCRIPTION = """
-            This is a demonstration task. It is automatically initialized 
-            when the application starts. 
-            You can interact with it like any other task, including deleting it. :)
-            """;
+    This is a demonstration task. It is automatically initialized \
+    when the application starts. \
+    You can interact with it like any other task, including deleting it. :)
+    """;
+
     private static final LocalDateTime EXAMPLE_TASK_DEADLINE_DATE = LocalDateTime
             .now()
             .plusMonths(6);
