@@ -1,0 +1,9 @@
+body {
+    padding-top: 35px;
+}
+
+#local-time-header {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-left: 20px;
+}
