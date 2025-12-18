@@ -1,9 +1,14 @@
-body {
-    padding-top: 35px;
+html, body {
+    height: 100%;
 }
 
-#local-time-header {
-    font-size: 1.1rem;
-    font-weight: 400;
-    margin-left: 20px;
+body {
+    padding-top: 45px;   /* ← твой стиль, остаётся */
+    display: flex;
+    flex-direction: column;
 }
+
+.main-content {
+    flex: 1 0 auto;;
+}
+

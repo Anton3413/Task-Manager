@@ -1,16 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 <div th:fragment="main-footer">
-    <footer class="bg-white text-center text-muted py-3 border-top mt-4">
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
+    <footer class="main-footer mt-auto">
         <div class="container">
-            &copy; 2025 MyApp. All rights reserved.
+            <div class="footer-content">
+                <div class="footer-copyright">
+                    <span class="app-name">TaskManager</span>
+                    &copy; <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy')}"></span>
+                    All rights reserved.
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/Anton3413" target="_blank" class="footer-link">
+                        <i class="bi bi-github"></i> GitHub
+                    </a>
+                    <a href="https://t.me/bondar852" target="_blank" class="footer-link">
+                        <i class="bi bi-telegram"></i> Telegram
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 </div>
-</body>
-</html>
