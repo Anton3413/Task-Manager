@@ -4,7 +4,6 @@ package com.anton3413.taskmanager.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,10 +14,11 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of={"id","title"})
 @Table(name ="task" )
 @Entity
+@Builder
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true,nullable = false)
@@ -33,10 +33,10 @@ public class Task {
     private LocalDateTime createdAt;
 
     @Column(name = "due_date")
-    private LocalDate dueDate;
+    private LocalDateTime dueDate;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user;*/
 
 }
