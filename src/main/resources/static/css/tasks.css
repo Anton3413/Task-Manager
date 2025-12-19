@@ -1,55 +1,44 @@
-/* 1. Общий контейнер таблицы */
 table.table-rounded {
     border-collapse: separate !important;
     border-spacing: 0 !important;
     border-radius: 0.5rem !important;
     overflow: hidden;
-    /* Внешняя рамка всей таблицы */
     border: 1px solid #dee2e6 !important;
     margin-bottom: 2rem;
 }
 
-/* 2. Шапка таблицы */
 table.table .table-custom-dark th {
     background-color: #1a1d20 !important;
     color: #ffffff !important;
-    /* Вертикальные полоски в шапке (опционально, можно сделать чуть светлее) */
     border-right: 1px solid #343a40 !important;
     vertical-align: middle;
     padding: 14px 10px;
     font-weight: 500;
 }
 
-/* Убираем полоску у последней колонки в шапке, чтобы не двоилась с внешней рамкой */
 table.table .table-custom-dark th:last-child {
     border-right: none !important;
 }
 
-/* 3. Снова рисуем границы (полоски) между колонками и строками в теле таблицы */
 table.table-rounded td {
     vertical-align: middle !important;
-    /* Рисуем полоску снизу и справа у каждой ячейки */
     border-bottom: 1px solid #dee2e6 !important;
     border-right: 1px solid #dee2e6 !important;
 }
 
-/* Убираем правую полоску у последней колонки, чтобы не было "толстого" края */
 table.table-rounded td:last-child {
     border-right: none !important;
 }
 
-/* Убираем нижнюю полоску у самой последней строки */
 table.table-rounded tbody tr:last-child td {
     border-bottom: none !important;
 }
 
-/* 4. Скругление углов (без изменений) */
 table.table-rounded thead tr:first-child th:first-child { border-top-left-radius: 0.5rem !important; }
 table.table-rounded thead tr:first-child th:last-child { border-top-right-radius: 0.5rem !important; }
 table.table-rounded tbody tr:last-child td:first-child { border-bottom-left-radius: 0.5rem !important; }
 table.table-rounded tbody tr:last-child td:last-child { border-bottom-right-radius: 0.5rem !important; }
 
-/* 5. Иконки действий */
 .action-icon {
     font-size: 1.2rem;
     text-decoration: none;

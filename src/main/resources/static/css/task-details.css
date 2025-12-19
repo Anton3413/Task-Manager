@@ -1,54 +1,49 @@
-/* task-details.css */
-
-/* Карточка таски */
 .card.task-card {
     background: #f8f9fa; /* светлый фон */
     border-radius: 0.75rem;
     padding: 1rem;
-    width: 100%;       /* растягиваем по ширине колонки */
-    height: auto;      /* высота зависит от контента */
-    overflow: visible; /* разрешаем карточке "расти" вниз */
+    width: 100%;
+    height: auto;
+    overflow: visible;
 }
 
-/* Заголовки полей внутри карточки */
 .card.task-card .form-label {
     font-weight: 600;
     color: #495057;
 }
 
-/* Каждое поле таски с иконкой и текстом */
 .task-field {
     display: flex;
-    align-items: flex-start; /* перенос текста под иконкой */
+    align-items: flex-start;
     gap: 0.5rem;
     margin-bottom: 1rem;
-    flex-wrap: wrap; /* если текст длинный — переносим на новую строку */
+    flex-wrap: wrap;
 }
 
-/* Растягиваем текстовый блок внутри поля */
 .task-field > div {
     flex: 1 1 auto;
     width: 100%;
 }
 
-/* Иконка в начале поля */
 .task-field i {
     color: #6c757d;
     min-width: 1.2rem;
     text-align: center;
-    margin-top: 0.2rem; /* чуть ниже для выравнивания с текстом */
+    margin-top: 0.2rem;
 }
 
-/* Статус */
 .badge-status {
     font-size: 0.9rem;
     padding: 0.4em 0.6em;
 }
 
-/* Текстовые поля */
 .form-control-plaintext {
-    white-space: pre-wrap; /* перенос длинного текста */
-    word-break: break-word; /* перенос слов, если они длинные */
-    margin: 0;              /* убираем лишние отступы */
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
     width: 100%;
+}
+
+.task-actions {
+    border-top: 1px solid #dee2e6;
 }

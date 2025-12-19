@@ -16,6 +16,6 @@ public interface TaskService {
 
     List<TaskSummaryDto> findAll();
 
-    boolean existsByTitle(String title);
+    boolean existsByTitleIgnoreCase(String title);
 
 }

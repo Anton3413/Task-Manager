@@ -1,10 +1,9 @@
 package com.anton3413.taskmanager.dto;
 
 import com.anton3413.taskmanager.model.Status;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.anton3413.taskmanager.validation.annotation.FutureOrPresent;
+import com.anton3413.taskmanager.validation.annotation.Unique;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,17 +15,16 @@ import java.time.LocalDateTime;
 @Setter
 public class CreateTaskDto {
 
-
-    @Size(max = 150)
-    @NotNull
-    @NotEmpty
+    @Size(max = 50, message = "Title cannot exceed 50 characters")
+    @NotBlank(message = "Title is required")
+    @Unique(message = "Task with this title already exists")
     private String title;
 
-    @Size(max = 500)
+    @Size(max = 1200, message = "Description is too long (max 1200 chars)")
     private String description;
 
     private Status status;
 
-    @Future
+    @FutureOrPresent(message = "The due date cannot be in the past")
     private LocalDateTime dueDate;
 }

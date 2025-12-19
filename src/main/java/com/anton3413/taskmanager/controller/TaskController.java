@@ -47,15 +47,14 @@ public class TaskController {
     }
 
     @PostMapping("/new")
-    public String createNewTask(@Valid @ModelAttribute CreateTaskDto createTaskDto,
-                                BindingResult result, Model model){
+    public String createNewTask(@Valid @ModelAttribute("task") CreateTaskDto createTaskDto,
+                                BindingResult result){
 
         if(result.hasErrors()){
             return "create-task";
         }
 
         taskService.save(createTaskDto);
-
         return "redirect:/tasks";
     }
 

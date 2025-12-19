@@ -1,7 +1,6 @@
 package com.anton3413.taskmanager.config;
 
 import com.anton3413.taskmanager.dto.CreateTaskDto;
-import com.anton3413.taskmanager.mapper.CreateTaskDtoMapper;
 import com.anton3413.taskmanager.model.Status;
 import com.anton3413.taskmanager.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if(!taskService.existsByTitle(EXAMPLE_TASK_TITLE)){
+        if(!taskService.existsByTitleIgnoreCase(EXAMPLE_TASK_TITLE)){
              CreateTaskDto demoTask = CreateTaskDto.builder()
                     .title(EXAMPLE_TASK_TITLE)
                     .description(EXAMPLE_TASK_DESCRIPTION)

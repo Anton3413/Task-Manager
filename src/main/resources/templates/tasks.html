@@ -60,14 +60,12 @@
                     <td class="text-center">
                         <div class="d-inline-flex align-items-center gap-3">
 
-                            <!-- Edit -->
                             <a th:href="@{/tasks/edit/{id}(id=${task.id})}"
                                class="text-primary action-icon"
                                title="Edit">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
 
-                            <!-- Delete -->
                             <form th:action="@{/tasks/delete/{id}(id=${task.id})}"
                                   method="post"
                                   class="m-0">

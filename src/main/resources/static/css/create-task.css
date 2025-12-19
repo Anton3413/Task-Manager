@@ -1,4 +1,3 @@
-/* Контейнер формы */
 .form-container-custom {
     border: 1px solid #dee2e6 !important;
     border-radius: 0.5rem !important;
@@ -6,7 +5,6 @@
     background-color: #fff;
 }
 
-/* Светлая шапка формы */
 .form-header-light {
     background-color: #f8f9fa !important;
     color: #1a1d20 !important;
@@ -18,15 +16,13 @@
     align-items: center;
 }
 
-/* Иконка теперь графитовая, а не зеленая */
 .form-header-light i {
     color: #495057;
     font-size: 1.2rem;
 }
 
-/* Кнопка Back с увеличенным отступом сверху */
 .back-btn-wrapper {
-    margin-top: 2rem; /* Увеличили расстояние от хедера */
+    margin-top: 2rem;
     margin-bottom: 1.5rem;
 }
 

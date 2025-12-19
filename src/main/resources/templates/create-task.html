@@ -31,15 +31,30 @@
 
                     <div class="form-body-custom">
                         <form th:action="@{/tasks/new}" th:object="${task}" method="post">
+
+                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger shadow-sm mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-exclamation-octagon-fill me-2 fs-5"></i>
+                                    <strong class="fs-6">Please correct the following errors:</strong>
+                                </div>
+                                <ul class="mb-0 ps-4 small">
+                                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+
                             <div class="mb-4">
                                 <label for="title" class="form-label">Title</label>
-                                <input type="text" th:field="*{title}" class="form-control" id="title"
-                                       placeholder="What needs to be done?" required>
+                                <input required type="text" th:field="*{title}"
+                                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''"
+                                       class="form-control" id="title"
+                                       placeholder="What needs to be done?">
                             </div>
 
                             <div class="mb-4">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea th:field="*{description}" class="form-control" id="description"
+                                <textarea th:field="*{description}"
+                                          th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"
+                                          class="form-control" id="description"
                                           rows="4" placeholder="Add some details..."></textarea>
                             </div>
 
@@ -50,9 +65,12 @@
                                         <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
                                     </select>
                                 </div>
+
                                 <div class="col-md-6 mb-4">
                                     <label for="dueDate" class="form-label">Due Date</label>
-                                    <input type="datetime-local" th:field="*{dueDate}" class="form-control" id="dueDate">
+                                    <input type="datetime-local" th:field="*{dueDate}"
+                                           th:classappend="${#fields.hasErrors('dueDate')} ? 'is-invalid' : ''"
+                                           class="form-control" id="dueDate">
                                 </div>
                             </div>
 

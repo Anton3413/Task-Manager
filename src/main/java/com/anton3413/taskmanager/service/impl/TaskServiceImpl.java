@@ -52,7 +52,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public boolean existsByTitle(String title){
-      return taskRepository.existsByTitle(title);
+    public boolean existsByTitleIgnoreCase(String title){
+
+      return taskRepository.existsByTitleIgnoreCase(title);
     }
 }

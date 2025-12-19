@@ -1,20 +1,15 @@
-/* Мягкий темно-серый фон */
 .navbar-custom {
-    background-color: #1a1d20 !important; /* Глубокий антрацит */
-    border-bottom: 1px solid #2d3238 !important; /* Едва заметная полоска снизу */
+    background-color: #1a1d20 !important;
+    border-bottom: 1px solid #2d3238 !important;
 }
 
-/* Стили для времени, чтобы оно "светилось" мягко */
 #local-time-header {
-    /* Чистый белый. На тонком шрифте 300 он выглядит идеально и мягко */
     color: #ffffff;
-
     font-size: 0.95rem;
     font-weight: 300;
     letter-spacing: 0.5px;
 }
 
-/* Немного подсветим логотип, раз хедер стал мягче */
 .navbar-brand {
-    letter-spacing: -0.5px; /* Сближаем буквы в названии, так оно выглядит как лого */
+    letter-spacing: -0.5px;
 }
