@@ -1,3 +1,4 @@
+
 .card.task-card {
     background: #ffffff;
     border-radius: 1rem;
@@ -27,6 +28,11 @@
     border-color: #0dcaf0 !important;
     box-shadow: 0 0 0 0.2rem rgba(13, 202, 240, 0.1) !important;
     outline: none;
+}
+
+.description-area textarea {
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 .ps-md-4.border-start {
@@ -60,5 +66,12 @@
     color: #ffffff !important;
 }
 
-.header-spacer { display: block; width: 100%; }
-.breadcrumb-item + .breadcrumb-item::before { content: "/"; color: #dee2e6; }
+.header-spacer {
+    display: block;
+    width: 100%;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+    color: #dee2e6;
+}

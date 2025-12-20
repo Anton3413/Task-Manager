@@ -1,11 +1,5 @@
 package com.anton3413.taskmanager.service.impl;
 
-import com.anton3413.taskmanager.dto.CreateTaskDto;
-import com.anton3413.taskmanager.dto.ResponseTaskDto;
-import com.anton3413.taskmanager.dto.TaskSummaryDto;
-import com.anton3413.taskmanager.mapper.CreateTaskDtoMapper;
-import com.anton3413.taskmanager.mapper.ResponseTaskDtoMapper;
-import com.anton3413.taskmanager.mapper.TaskSummaryDtoMapper;
 import com.anton3413.taskmanager.model.Task;
 import com.anton3413.taskmanager.repository.TaskRepository;
 import com.anton3413.taskmanager.service.TaskService;
@@ -14,20 +8,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
-    private final TaskSummaryDtoMapper taskSummaryDtoMapper;
-    private final CreateTaskDtoMapper createTaskDtoMapper;
-    private final ResponseTaskDtoMapper responseTaskDtoMapper;
 
     @Override
-    public ResponseTaskDto findById(Long id) {
-        Task task = taskRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return responseTaskDtoMapper.toDto(task);
+    public Task findById(Long id) {
+        return taskRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -39,15 +30,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void save(CreateTaskDto createTaskDto) {
-        taskRepository.save(createTaskDtoMapper.toEntity(createTaskDto));
+    public void save(Task task) {
+        taskRepository.save(task);
     }
 
     @Override
-    public List<TaskSummaryDto> findAll() {
+    public List<Task> findAll() {
         return taskRepository.findAll()
                 .stream()
-                .map(taskSummaryDtoMapper::toDto)
                 .toList();
     }
 
@@ -55,5 +45,10 @@ public class TaskServiceImpl implements TaskService {
     public boolean existsByTitleIgnoreCase(String title){
 
       return taskRepository.existsByTitleIgnoreCase(title);
+    }
+
+    @Override
+    public Optional<Task> findTaskByTitleIgnoreCase(String title){
+      return  taskRepository.findTaskByTitleIgnoreCase(title);
     }
 }

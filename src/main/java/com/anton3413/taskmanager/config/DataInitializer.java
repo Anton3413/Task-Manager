@@ -1,7 +1,7 @@
 package com.anton3413.taskmanager.config;
 
-import com.anton3413.taskmanager.dto.CreateTaskDto;
 import com.anton3413.taskmanager.model.Status;
+import com.anton3413.taskmanager.model.Task;
 import com.anton3413.taskmanager.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -31,9 +31,10 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         if(!taskService.existsByTitleIgnoreCase(EXAMPLE_TASK_TITLE)){
-             CreateTaskDto demoTask = CreateTaskDto.builder()
+             Task demoTask = Task.builder()
                     .title(EXAMPLE_TASK_TITLE)
                     .description(EXAMPLE_TASK_DESCRIPTION)
+                    .createdAt(LocalDateTime.now())
                     .status(Status.NEW)
                     .dueDate(EXAMPLE_TASK_DEADLINE_DATE)
                     .build();

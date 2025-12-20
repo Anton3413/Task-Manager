@@ -10,8 +10,8 @@ CREATE TABLE  IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS task(
                                    id BIGSERIAL PRIMARY KEY,
                                    user_id BIGINT REFERENCES users(id),
-                                   title VARCHAR(50) UNIQUE NOT NULL,
-                                   description VARCHAR(1200),
+                                   title VARCHAR(100) UNIQUE NOT NULL,
+                                   description VARCHAR(2000),
                                    status VARCHAR NOT NULL,
                                    created_at TIMESTAMP NOT NULL,
                                    due_date TIMESTAMP

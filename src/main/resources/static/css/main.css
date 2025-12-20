@@ -3,12 +3,12 @@ html, body {
 }
 
 body {
-    padding-top: 45px;
+
+    padding-top: 55px !important;
     display: flex;
     flex-direction: column;
 }
 
 .main-content {
-    flex: 1 0 auto;;
+    flex: 1 0 auto;
 }
-
