@@ -15,6 +15,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleEntityNotFoundExc(EntityNotFoundException exception, Model model){
         model.addAttribute("errorMessage", exception.getMessage());
+
         return "errors/404-error";
     }
 }
