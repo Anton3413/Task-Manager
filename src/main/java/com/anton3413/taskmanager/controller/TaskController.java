@@ -5,10 +5,7 @@ import com.anton3413.taskmanager.dto.CreateTaskDto;
 import com.anton3413.taskmanager.dto.EditTaskDto;
 import com.anton3413.taskmanager.dto.ResponseTaskDto;
 import com.anton3413.taskmanager.dto.TaskSummaryDto;
-import com.anton3413.taskmanager.mapper.CreateTaskDtoMapper;
-import com.anton3413.taskmanager.mapper.EditTaskDtoMapper;
-import com.anton3413.taskmanager.mapper.ResponseTaskDtoMapper;
-import com.anton3413.taskmanager.mapper.TaskSummaryDtoMapper;
+import com.anton3413.taskmanager.mapper.TaskMapper;
 import com.anton3413.taskmanager.model.Status;
 import com.anton3413.taskmanager.model.Task;
 import com.anton3413.taskmanager.service.TaskService;
@@ -28,10 +25,7 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
-    private final TaskSummaryDtoMapper taskSummaryDtoMapper;
-    private final CreateTaskDtoMapper createTaskDtoMapper;
-    private final ResponseTaskDtoMapper responseTaskDtoMapper;
-    private final EditTaskDtoMapper editTaskDtoMapper;
+    private final TaskMapper taskMapper;
 
     @ModelAttribute("statuses")
     public Status[] addStatuses(){
@@ -47,7 +41,7 @@ public class TaskController {
 
         List<TaskSummaryDto> tasks = taskService.findAll(sort)
                 .stream()
-                .map(taskSummaryDtoMapper::toDto)
+                .map(taskMapper::fromEntityToTaskSummaryDto)
                 .toList();
 
         model.addAttribute("tasks",tasks);
@@ -63,7 +57,7 @@ public class TaskController {
     @GetMapping("/{id}")
     public String showTaskDetails(@PathVariable Long id, Model model){
 
-       ResponseTaskDto taskDto =  responseTaskDtoMapper.toDto(taskService.findById(id));
+       ResponseTaskDto taskDto =  taskMapper.fromEntityToResponseTaskDto(taskService.findById(id));
 
        model.addAttribute("task",taskDto);
 
@@ -84,7 +78,7 @@ public class TaskController {
             return "create-task";
         }
 
-        taskService.save(createTaskDtoMapper.toEntity(createTaskDto));
+        taskService.save(taskMapper.fromCreateTaskDtoToEntity(createTaskDto));
         return "redirect:/tasks";
     }
 
@@ -98,7 +92,7 @@ public class TaskController {
     @GetMapping("/edit/{id}")
     public String showEditTaskPage(@PathVariable Long id, Model model){
 
-        EditTaskDto task = editTaskDtoMapper.toDto(taskService.findById(id));
+        EditTaskDto task = taskMapper.fromEntityToEditTaskDto(taskService.findById(id));
 
         model.addAttribute("task",task);
 
@@ -112,7 +106,7 @@ public class TaskController {
         if(bindingResult.hasErrors()){
             return "edit-task";
         }
-        Task task = editTaskDtoMapper.toEntity(editTaskDto);
+        Task task = taskMapper.fromEditTaskDtoToEntity(editTaskDto);
         taskService.save(task);
         return "redirect:/tasks";
     }
