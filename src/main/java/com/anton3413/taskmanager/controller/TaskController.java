@@ -14,6 +14,7 @@ import com.anton3413.taskmanager.model.Task;
 import com.anton3413.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,12 +39,24 @@ public class TaskController {
     }
 
     @GetMapping
-    public String showAllTasks(Model model){
-        List<TaskSummaryDto> tasks = taskService.findAll()
+    public String showAllTasks(Model model,
+                               @RequestParam(name = "sortField",defaultValue = "id") String sortField,
+                               @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
+
+        Sort sort = getValidatedSort(sortField,sortDir);
+
+        List<TaskSummaryDto> tasks = taskService.findAll(sort)
                 .stream()
                 .map(taskSummaryDtoMapper::toDto)
                 .toList();
+
         model.addAttribute("tasks",tasks);
+
+        model.addAttribute("sortField", sort.get().findFirst().get().getProperty());
+        model.addAttribute("sortDir", sort.get().findFirst().get().getDirection().name().toLowerCase());
+        model.addAttribute("reverseSortDir",
+                sort.get().findFirst().get().getDirection().isAscending() ? "desc" : "asc");
+
         return "tasks";
     }
 
@@ -100,10 +113,28 @@ public class TaskController {
             return "edit-task";
         }
         Task task = editTaskDtoMapper.toEntity(editTaskDto);
-        System.out.println(task.getId());
-        System.out.println(editTaskDto.getId());
         taskService.save(task);
         return "redirect:/tasks";
     }
 
+    @PostMapping("/updateStatus")
+    public String editTaskStatus(@RequestParam("taskId") Long id,
+                                 @RequestParam("status") String status){
+
+        taskService.updateStatus(id,status);
+
+        return "redirect:/tasks";
+    }
+
+    private Sort getValidatedSort(String fieldName, String direction) {
+
+        final List<String> allowedFields = List.of("id","title","dueDate", "status");
+
+        String safeField = allowedFields.contains(fieldName) ? fieldName : "id";
+        Sort.Direction safeDir = direction.equalsIgnoreCase("desc")
+                ? Sort.Direction.DESC
+                : Sort.Direction.ASC;
+
+        return Sort.by(safeDir, safeField);
+    }
 }
