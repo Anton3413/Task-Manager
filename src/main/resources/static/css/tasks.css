@@ -132,3 +132,24 @@ button.action-icon {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
+
+.task-status-select {
+    border: 1px solid #dee2e6 !important;
+    background-color: #f8f9fa !important;
+    color: #1e2b37 !important;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.task-status-select:hover {
+    border-color: #0dcaf0 !important;
+    background-color: #ffffff !important;
+}
+
+.task-status-select:focus {
+    border-color: #0dcaf0 !important;
+    box-shadow: 0 0 0 0.2rem rgba(13, 202, 240, 0.15) !important;
+    outline: none;
+}
