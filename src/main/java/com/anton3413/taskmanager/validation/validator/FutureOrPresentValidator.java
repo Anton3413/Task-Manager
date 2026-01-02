@@ -13,7 +13,6 @@ public class FutureOrPresentValidator implements ConstraintValidator<FutureOrPre
         if (localDateTime == null) {
             return true;
         }
-
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
 
         return !localDateTime.isBefore(now);
