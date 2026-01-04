@@ -1,4 +1,4 @@
-package com.anton3413.taskmanager.config.exception.handler;
+package com.anton3413.taskmanager.exception.handler;
 
 
 import jakarta.persistence.EntityNotFoundException;

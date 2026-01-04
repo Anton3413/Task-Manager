@@ -14,14 +14,17 @@ import java.util.List;
 @EqualsAndHashCode(of={"id","username"})
 @Table(name ="users" )
 @Entity
+@Builder
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(unique = true, nullable = false, length = 60)
     private String username;
+
+    @Column( nullable = false, length = 300)
+    private String password;
 
     @Column(unique = true, nullable = false)
     private String email;

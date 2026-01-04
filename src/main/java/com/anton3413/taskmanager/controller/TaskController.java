@@ -9,9 +9,13 @@ import com.anton3413.taskmanager.mapper.TaskMapper;
 import com.anton3413.taskmanager.model.Status;
 import com.anton3413.taskmanager.model.Task;
 import com.anton3413.taskmanager.service.TaskService;
+import com.anton3413.taskmanager.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +30,7 @@ public class TaskController {
 
     private final TaskService taskService;
     private final TaskMapper taskMapper;
+    private final UserService userService;
 
     @ModelAttribute("statuses")
     public Status[] addStatuses(){
@@ -33,13 +38,13 @@ public class TaskController {
     }
 
     @GetMapping
-    public String showAllTasks(Model model,
+    public String showAllTasks(Model model, @AuthenticationPrincipal UserDetails userDetails,
                                @RequestParam(name = "sortField",defaultValue = "id") String sortField,
                                @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
 
         Sort sort = getValidatedSort(sortField,sortDir);
 
-        List<TaskSummaryDto> tasks = taskService.findAll(sort)
+        List<TaskSummaryDto> tasks = taskService.findAllByUserUsername(userDetails.getUsername(),sort)
                 .stream()
                 .map(taskMapper::fromEntityToTaskSummaryDto)
                 .toList();
@@ -72,16 +77,17 @@ public class TaskController {
 
     @PostMapping("/new")
     public String createNewTask(@Valid @ModelAttribute("task") CreateTaskDto createTaskDto,
-                                BindingResult result){
+                                BindingResult result, @AuthenticationPrincipal UserDetails userDetails){
 
         if(result.hasErrors()){
             return "create-task";
         }
 
-        taskService.save(taskMapper.fromCreateTaskDtoToEntity(createTaskDto));
+        taskService.save(taskMapper.fromCreateTaskDtoToEntity(createTaskDto), userDetails.getUsername());
         return "redirect:/tasks";
     }
-
+/// ////////////
+/// ///////////TODO check taskOwner
     @PostMapping("/delete/{id}")
     public String deleteTaskById(@PathVariable Long id){
         taskService.deleteById(id);
@@ -101,13 +107,13 @@ public class TaskController {
 
     @PostMapping("/edit")
     public String editTask( @Valid @ModelAttribute("task") EditTaskDto editTaskDto,
-                            BindingResult bindingResult){
+                            BindingResult bindingResult, @AuthenticationPrincipal UserDetails userDetails){
 
         if(bindingResult.hasErrors()){
             return "edit-task";
         }
         Task task = taskMapper.fromEditTaskDtoToEntity(editTaskDto);
-        taskService.save(task);
+        taskService.save(task,userDetails.getUsername());
         return "redirect:/tasks";
     }
 

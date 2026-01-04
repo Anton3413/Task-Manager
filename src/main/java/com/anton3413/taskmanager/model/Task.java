@@ -35,8 +35,8 @@ public class Task {
     @Column(name = "due_date")
     private LocalDateTime dueDate;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;*/
+    private User user;
 
 }

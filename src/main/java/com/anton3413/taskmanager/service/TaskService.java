@@ -13,7 +13,7 @@ public interface TaskService {
 
     void deleteById(Long id);
 
-    void save(Task task);
+    void save(Task task, String userName);
 
     List<Task> findAll(Sort sort);
 
@@ -23,4 +23,6 @@ public interface TaskService {
 
     @Transactional
     void updateStatus(Long taskId, String status);
+
+    List<Task> findAllByUserUsername(String username, Sort sort);
 }

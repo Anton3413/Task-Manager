@@ -2,7 +2,8 @@ START TRANSACTION;
 
 CREATE TABLE  IF NOT EXISTS users(
                                      id BIGSERIAL PRIMARY KEY,
-                                     username VARCHAR(50) UNIQUE NOT NULL,
+                                     username VARCHAR(60) UNIQUE NOT NULL,
+                                     password VARCHAR(300) NOT NULL,
                                      email VARCHAR UNIQUE NOT NULL,
                                      created_at TIMESTAMP
 );
