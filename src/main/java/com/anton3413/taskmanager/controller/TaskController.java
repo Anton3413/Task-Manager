@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -36,15 +37,19 @@ public class TaskController {
     public Status[] addStatuses(){
         return Status.values();
     }
+    @ModelAttribute("currentUser")
+    public UserDetails addCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+        return userDetails;
+    }
 
     @GetMapping
-    public String showAllTasks(Model model, @AuthenticationPrincipal UserDetails userDetails,
+    public String showAllTasks(Model model,
                                @RequestParam(name = "sortField",defaultValue = "id") String sortField,
                                @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
 
         Sort sort = getValidatedSort(sortField,sortDir);
 
-        List<TaskSummaryDto> tasks = taskService.findAllByUserUsername(userDetails.getUsername(),sort)
+        List<TaskSummaryDto> tasks = taskService.findAll(sort)
                 .stream()
                 .map(taskMapper::fromEntityToTaskSummaryDto)
                 .toList();
@@ -62,7 +67,8 @@ public class TaskController {
     @GetMapping("/{id}")
     public String showTaskDetails(@PathVariable Long id, Model model){
 
-       ResponseTaskDto taskDto =  taskMapper.fromEntityToResponseTaskDto(taskService.findById(id));
+       ResponseTaskDto taskDto =  taskMapper.fromEntityToResponseTaskDto(
+               taskService.findById(id));
 
        model.addAttribute("task",taskDto);
 
@@ -83,11 +89,11 @@ public class TaskController {
             return "create-task";
         }
 
-        taskService.save(taskMapper.fromCreateTaskDtoToEntity(createTaskDto), userDetails.getUsername());
+        taskService.save(taskMapper.fromCreateTaskDtoToEntity(createTaskDto));
         return "redirect:/tasks";
     }
-/// ////////////
-/// ///////////TODO check taskOwner
+
+
     @PostMapping("/delete/{id}")
     public String deleteTaskById(@PathVariable Long id){
         taskService.deleteById(id);
@@ -96,7 +102,7 @@ public class TaskController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditTaskPage(@PathVariable Long id, Model model){
+    public String showEditTaskPage(@PathVariable Long id, Model model, Principal principal){
 
         EditTaskDto task = taskMapper.fromEntityToEditTaskDto(taskService.findById(id));
 
@@ -113,7 +119,7 @@ public class TaskController {
             return "edit-task";
         }
         Task task = taskMapper.fromEditTaskDtoToEntity(editTaskDto);
-        taskService.save(task,userDetails.getUsername());
+        taskService.save(task);
         return "redirect:/tasks";
     }
 
