@@ -12,7 +12,6 @@ import com.anton3413.taskmanager.service.TaskService;
 import com.anton3413.taskmanager.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -31,12 +29,12 @@ public class TaskController {
 
     private final TaskService taskService;
     private final TaskMapper taskMapper;
-    private final UserService userService;
 
     @ModelAttribute("statuses")
     public Status[] addStatuses(){
         return Status.values();
     }
+
     @ModelAttribute("currentUser")
     public UserDetails addCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
         return userDetails;
@@ -82,17 +80,13 @@ public class TaskController {
     }
 
     @PostMapping("/new")
-    public String createNewTask(@Valid @ModelAttribute("task") CreateTaskDto createTaskDto,
-                                BindingResult result, @AuthenticationPrincipal UserDetails userDetails){
-
+    public String createNewTask(@Valid @ModelAttribute("task") CreateTaskDto createTaskDto, BindingResult result){
         if(result.hasErrors()){
             return "create-task";
         }
-
         taskService.save(taskMapper.fromCreateTaskDtoToEntity(createTaskDto));
         return "redirect:/tasks";
     }
-
 
     @PostMapping("/delete/{id}")
     public String deleteTaskById(@PathVariable Long id){
@@ -102,7 +96,7 @@ public class TaskController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditTaskPage(@PathVariable Long id, Model model, Principal principal){
+    public String showEditTaskPage(@PathVariable Long id, Model model){
 
         EditTaskDto task = taskMapper.fromEntityToEditTaskDto(taskService.findById(id));
 
@@ -112,8 +106,8 @@ public class TaskController {
     }
 
     @PostMapping("/edit")
-    public String editTask( @Valid @ModelAttribute("task") EditTaskDto editTaskDto,
-                            BindingResult bindingResult, @AuthenticationPrincipal UserDetails userDetails){
+    public String editTask(@Valid @ModelAttribute("task") EditTaskDto editTaskDto,
+                           BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             return "edit-task";

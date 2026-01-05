@@ -11,15 +11,13 @@ import java.util.Optional;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    boolean existsByTitleIgnoreCase(String title);
+    boolean existsByTitleIgnoreCaseAndUser_Username(String title, String userUsername);
 
-    Optional<Task> findTaskByTitleIgnoreCase(String title);
+    Optional<Task> findTaskByTitleIgnoreCaseAndUser_Username(String title, String userUsername);
 
     List<Task> findAllByUser_Username(String userUsername, Sort sort);
 
     Optional<Task> findByIdAndUser_Username(Long id, String userUsername);
-
-    boolean existsTaskByIdAndUser_Username(Long id, String userUsername);
 
 }
 
