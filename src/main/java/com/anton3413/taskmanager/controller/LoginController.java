@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.core.Authentication;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,5 +48,12 @@ public class LoginController {
         userService.save(newUser);
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/logout")
+    String displayLogoutPage(Authentication authentication){
+        if (authentication == null) {
+            return "redirect:/login";
+        }else return "logout";
     }
 }
