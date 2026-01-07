@@ -1,16 +1,16 @@
 package com.anton3413.taskmanager.validation.validator;
 
-import com.anton3413.taskmanager.dto.CreateTaskDto;
-import com.anton3413.taskmanager.dto.EditTaskDto;
+import com.anton3413.taskmanager.dto.task.CreateTaskDto;
+import com.anton3413.taskmanager.dto.task.EditTaskDto;
 
 import com.anton3413.taskmanager.service.TaskService;
-import com.anton3413.taskmanager.validation.annotation.Unique;
+import com.anton3413.taskmanager.validation.annotation.UniqueTaskTitle;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class UniqueTitleValidator implements ConstraintValidator<Unique, Object> {
+public class UniqueTaskTitleValidator implements ConstraintValidator<UniqueTaskTitle, Object> {
 
     private final TaskService taskService;
 

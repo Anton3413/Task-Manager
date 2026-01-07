@@ -1,9 +1,9 @@
 package com.anton3413.taskmanager.mapper;
 
-import com.anton3413.taskmanager.dto.CreateTaskDto;
-import com.anton3413.taskmanager.dto.EditTaskDto;
-import com.anton3413.taskmanager.dto.ResponseTaskDto;
-import com.anton3413.taskmanager.dto.TaskSummaryDto;
+import com.anton3413.taskmanager.dto.task.CreateTaskDto;
+import com.anton3413.taskmanager.dto.task.EditTaskDto;
+import com.anton3413.taskmanager.dto.task.ResponseTaskDto;
+import com.anton3413.taskmanager.dto.task.TaskSummaryDto;
 import com.anton3413.taskmanager.model.Task;
 import org.springframework.stereotype.Component;
 

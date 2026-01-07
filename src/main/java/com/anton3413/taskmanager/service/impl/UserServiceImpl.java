@@ -8,8 +8,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 
 @Service
@@ -33,7 +33,11 @@ public class UserServiceImpl implements UserService {
     public boolean existsByUsername(String username) {
       return userRepository.existsUserByUsername(username);
     }
+    public boolean existsByEmail(String email){
+      return userRepository.existsByEmail(email);
+    }
 
+    @Transactional
    public User save(User user){
       return userRepository.save(user);
    }
@@ -42,6 +46,4 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
       return  userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Not Found"));
     }
-
-
 }

@@ -1,0 +1,96 @@
+html {
+    scrollbar-gutter: stable; /* Фикс съезда страницы на полпикселя */
+}
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 150px);
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+.card.task-card {
+    border-radius: 1rem;
+    background: #ffffff;
+    max-width: 100%;
+}
+.card-header-accent {
+    height: 5px;
+    background: #1e2b37;
+    border-bottom: 2px solid #0dcaf0;
+}
+
+.card-body {
+    padding: 2rem 2.5rem !important;
+}
+
+.error-announcement-area {
+    height: 40px !important;
+    margin: 10px 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.error-bubble {
+    background-color: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-radius: 8px;
+    padding: 4px 10px;
+    width: 100%;
+    animation: fadeInError 0.3s ease-out;
+}
+.error-bubble ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.error-bubble li {
+    color: #dc3545;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.details-label {
+    font-size: 0.85rem;
+    color: #1e2b37;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.input-error-state {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.1) !important;
+}
+
+.btn-login-main {
+    background-color: #0dcaf0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-login-main:hover {
+    background-color: #0bacce;
+    transform: translateY(-1px);
+}
+
+.login-footer-link {
+    margin-top: 1.5rem !important;
+    padding-top: 1.2rem;
+    border-top: 1px solid #f1f3f5;
+}
+
+@keyframes fadeInError {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

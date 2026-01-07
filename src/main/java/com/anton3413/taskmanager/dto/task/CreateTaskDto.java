@@ -1,8 +1,8 @@
-package com.anton3413.taskmanager.dto;
+package com.anton3413.taskmanager.dto.task;
 
 import com.anton3413.taskmanager.model.Status;
 import com.anton3413.taskmanager.validation.annotation.FutureOrPresent;
-import com.anton3413.taskmanager.validation.annotation.Unique;
+import com.anton3413.taskmanager.validation.annotation.UniqueTaskTitle;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @Getter
 @Setter
-@Unique(message = "Task with this title already exists")
+@UniqueTaskTitle(message = "Task with this title already exists")
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateTaskDto {

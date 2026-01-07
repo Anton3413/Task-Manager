@@ -1,30 +1,23 @@
-package com.anton3413.taskmanager.dto;
+package com.anton3413.taskmanager.dto.task;
 
 
 import com.anton3413.taskmanager.model.Status;
-import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-
 @Builder
 @Getter
 @Setter
-public class ResponseTaskDto {
+public class TaskSummaryDto {
 
     private Long id;
 
     private String title;
 
-    private String description;
-
     private Status status;
 
-    private LocalDateTime createdAt;
-
     private LocalDateTime dueDate;
-
 }

@@ -2,10 +2,10 @@ START TRANSACTION;
 
 CREATE TABLE  IF NOT EXISTS users(
                                      id BIGSERIAL PRIMARY KEY,
-                                     username VARCHAR(60) UNIQUE NOT NULL,
-                                     password VARCHAR(300) NOT NULL,
+                                     username VARCHAR(20) UNIQUE NOT NULL,
+                                     password VARCHAR(20) NOT NULL,
                                      email VARCHAR UNIQUE NOT NULL,
-                                     created_at TIMESTAMP
+                                     created_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS task(

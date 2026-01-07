@@ -1,3 +1,6 @@
+html {
+    scrollbar-gutter: stable;
+}
 html, body {
     height: 100%;
 }

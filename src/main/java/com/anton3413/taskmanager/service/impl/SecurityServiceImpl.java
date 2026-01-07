@@ -1,6 +1,6 @@
 package com.anton3413.taskmanager.service.impl;
 
-import com.anton3413.taskmanager.repository.SecurityService;
+import com.anton3413.taskmanager.service.SecurityService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 

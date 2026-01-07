@@ -1,4 +1,4 @@
-package com.anton3413.taskmanager.repository;
+package com.anton3413.taskmanager.service;
 
 public interface SecurityService {
 
