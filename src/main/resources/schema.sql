@@ -3,7 +3,7 @@ START TRANSACTION;
 CREATE TABLE  IF NOT EXISTS users(
                                      id BIGSERIAL PRIMARY KEY,
                                      username VARCHAR(20) UNIQUE NOT NULL,
-                                     password VARCHAR(20) NOT NULL,
+                                     password VARCHAR(200) NOT NULL,
                                      email VARCHAR UNIQUE NOT NULL,
                                      created_at TIMESTAMP NOT NULL
 );
