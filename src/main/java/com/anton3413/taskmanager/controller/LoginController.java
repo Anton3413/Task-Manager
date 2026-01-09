@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,7 +38,8 @@ public class LoginController {
     }
 
     @PostMapping("/registration")
-    String createNewUser(@Valid @ModelAttribute("userDto") CreateUserDto userDto, BindingResult result){
+    String createNewUser(@Valid @ModelAttribute("userDto") CreateUserDto userDto, BindingResult result,
+                         RedirectAttributes attributes){
         if(result.hasErrors()){
             return "/registration";
         }
@@ -46,6 +48,9 @@ public class LoginController {
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         userService.save(newUser);
+
+        attributes.addFlashAttribute("message", "Registration was successful!");
+        attributes.addFlashAttribute("messageType", "success");
 
         return "redirect:/login";
     }

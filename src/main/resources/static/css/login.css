@@ -8,13 +8,11 @@ header a[class*="btn"] {
     text-decoration: none !important;
     box-shadow: none !important;
 }
-
 .main-content.d-flex {
     flex-direction: column;
     justify-content: center;
     min-height: calc(100vh - 150px);
 }
-
 h1 { font-size: 2.8rem; line-height: 1.2; }
 .rounded-circle.bg-white {
     width: 42px; height: 42px;
@@ -59,12 +57,11 @@ h1 { font-size: 2.8rem; line-height: 1.2; }
 .form-control:focus::placeholder { color: transparent; }
 
 .error-container {
-    height: 32px !important;
+    min-height: 40px;
     margin: 10px 0 !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
 .login-error-message {
@@ -73,6 +70,25 @@ h1 { font-size: 2.8rem; line-height: 1.2; }
     font-weight: 600;
     width: 100%;
     text-align: center;
+    padding: 8px;
+    background-color: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-radius: 12px;
+}
+
+.login-success-message {
+    font-size: 0.75rem;
+    color: #0aaccd;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    background-color: #e3f9fb;
+    border: 1px solid #b1eef3;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-login-main {
