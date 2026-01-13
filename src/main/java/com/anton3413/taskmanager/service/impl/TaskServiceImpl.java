@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl  implements TaskService {
 
     private final TaskRepository taskRepository;
     private final UserService userService;
