@@ -28,8 +28,8 @@ public class TaskMapper {
                 .title(task.getTitle())
                 .description((task.getDescription()))
                 .status(task.getStatus())
-                .dueDate(task.getDueDate())
                 .createdAt(task.getCreatedAt())
+                .dueDate(task.getDueDate())
                 .build();
     }
     public Task fromEditTaskDtoToEntity(EditTaskDto dto) {
@@ -37,7 +37,6 @@ public class TaskMapper {
                 .id(dto.getId())
                 .title(dto.getTitle())
                 .description((dto.getDescription()))
-                .createdAt(dto.getCreatedAt())
                 .status(dto.getStatus())
                 .dueDate(dto.getDueDate())
                 .build();

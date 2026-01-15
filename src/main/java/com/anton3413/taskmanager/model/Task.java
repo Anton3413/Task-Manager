@@ -29,7 +29,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(name = "created_at",nullable = false,unique = true)
+    @Column(name = "created_at",nullable = false, unique = true,
+            updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "due_date")

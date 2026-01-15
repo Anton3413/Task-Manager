@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class EditTaskDto extends CreateTaskDto {
 
     private Long id;

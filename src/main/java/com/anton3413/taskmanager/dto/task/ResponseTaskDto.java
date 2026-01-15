@@ -2,9 +2,7 @@ package com.anton3413.taskmanager.dto.task;
 
 
 import com.anton3413.taskmanager.model.Status;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +10,8 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResponseTaskDto {
 
     private Long id;
