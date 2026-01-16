@@ -21,7 +21,6 @@ import java.util.Optional;
 @Transactional
 public class TaskServiceImpl  implements TaskService {
 
-
     private final TaskRepository taskRepository;
     private final UserService userService;
     private final SecurityService securityService;
