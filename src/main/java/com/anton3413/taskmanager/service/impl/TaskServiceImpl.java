@@ -34,6 +34,7 @@ public class TaskServiceImpl  implements TaskService {
                         new EntityNotFoundException(String.format(EXCEPTION_MESSAGE_ENTITY_NOT_FOUND, taskId)));
     }
 
+
     @Override
     public void deleteById(Long taskId) {
         Task task = findById(taskId);
