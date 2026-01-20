@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -35,8 +36,8 @@ public class TaskController {
     }
 
     @ModelAttribute("currentUser")
-    public UserDetails addCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
-        return userDetails;
+    public Principal currentUser(Principal principal) {
+        return principal;
     }
 
     @GetMapping
@@ -61,9 +62,12 @@ public class TaskController {
         return "tasks";
     }
 
-    @GetMapping("/{id}")
-    public String showTaskDetails(@PathVariable Long id, Model model){
+    @GetMapping({"/{id}","/"})
+    public String showTaskDetails(@PathVariable(required = false) Long id, Model model){
 
+        if(id == null){
+            return "redirect:/tasks";
+        }
        ResponseTaskDto taskDto =  taskMapper.fromEntityToResponseTaskDto(
                taskService.findById(id));
 
