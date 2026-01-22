@@ -12,8 +12,6 @@ import com.anton3413.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,9 +39,9 @@ public class TaskController {
     }
 
     @GetMapping
-    public String showAllTasks(Model model,
-                               @RequestParam(name = "sortField",defaultValue = "id") String sortField,
-                               @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
+    public String displayAllTasks(Model model,
+                                  @RequestParam(name = "sortField",defaultValue = "id") String sortField,
+                                  @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
 
         Sort sort = getValidatedSort(sortField,sortDir);
 
@@ -62,8 +60,8 @@ public class TaskController {
         return "tasks";
     }
 
-    @GetMapping({"/{id}","/"})
-    public String showTaskDetails(@PathVariable(required = false) Long id, Model model){
+    @GetMapping({"/{id}"})
+    public String displayTaskDetailsPage(@PathVariable(required = false) Long id, Model model){
 
         if(id == null){
             return "redirect:/tasks";
@@ -77,13 +75,13 @@ public class TaskController {
     }
 
     @GetMapping("/new")
-    public String showCreateTaskPage(Model model){
+    public String displayTaskCreatingPage(Model model){
         model.addAttribute("task", CreateTaskDto.builder().build());
         return "create-task";
     }
 
     @PostMapping("/new")
-    public String createNewTask(@Valid @ModelAttribute("task") CreateTaskDto createTaskDto, BindingResult result){
+    public String saveNewTaskFromForm(@Valid @ModelAttribute("task") CreateTaskDto createTaskDto, BindingResult result){
         if(result.hasErrors()){
             return "create-task";
         }
