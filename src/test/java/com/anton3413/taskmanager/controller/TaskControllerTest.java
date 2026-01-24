@@ -175,7 +175,8 @@ public class TaskControllerTest {
     @Test
     void deleteTaskById_shouldThrowExcWhenPathVariableIncorrect() throws Exception {
 
-        mockMvc.perform(post("/tasks/delete/{id}", "incorrect!!"))
+        mockMvc.perform(post("/tasks/delete/{id}", "incorrect!!")
+                        .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("errors/common-error"))
                 .andExpect(model().attributeExists("statusCode", "errorTitle", "errorMessage"));
@@ -201,5 +202,43 @@ public class TaskControllerTest {
 
         verify(taskMapper).fromEditTaskDtoToEntity(any(EditTaskDto.class));
         verify(taskService).save(any(Task.class));
+    }
+
+    @Test
+    void editTask_shouldReturnToPageWhenValidationHasErrors() throws Exception {
+
+        when(taskMapper.fromEditTaskDtoToEntity(any(EditTaskDto.class)))
+                .thenReturn(Task.builder().id(1L).build());
+        doNothing().when(taskService).save(any(Task.class));
+
+        mockMvc.perform(post("/tasks/edit")
+                        .with(csrf())
+                        .param("id",TASK_ID.toString())
+                        .param("title", "title")
+                        .param("description","description")
+                        .param("createdAt",LocalDateTime.now().toString())
+                        .param("status",Status.NEW.toString())
+                        .param("dueDate",LocalDateTime.now().minusMonths(3).toString()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("edit-task"))
+                .andExpect(model().hasErrors());
+
+        verify(taskMapper, never()).fromEditTaskDtoToEntity(any(EditTaskDto.class));
+        verify(taskService, never()).save(any(Task.class));
+    }
+
+    @Test
+    void editTaskStatus_shouldUpdateStatusAndRedirect() throws Exception {
+
+        doNothing().when(taskService).updateStatus(anyLong(), anyString());
+
+        mockMvc.perform(post("/tasks/updateStatus")
+                        .with(csrf())
+                        .param("taskId", TASK_ID.toString())
+                        .param("status", Status.DONE.toString()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/tasks"));
+
+        verify(taskService, times(1)).updateStatus(anyLong(),anyString());
     }
 }
