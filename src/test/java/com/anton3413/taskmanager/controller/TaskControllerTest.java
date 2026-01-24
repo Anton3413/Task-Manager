@@ -2,9 +2,11 @@ package com.anton3413.taskmanager.controller;
 
 
 import com.anton3413.taskmanager.dto.task.CreateTaskDto;
+import com.anton3413.taskmanager.dto.task.EditTaskDto;
 import com.anton3413.taskmanager.dto.task.ResponseTaskDto;
 import com.anton3413.taskmanager.dto.task.TaskSummaryDto;
 import com.anton3413.taskmanager.mapper.TaskMapper;
+import com.anton3413.taskmanager.model.Status;
 import com.anton3413.taskmanager.model.Task;
 import com.anton3413.taskmanager.service.TaskService;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,8 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @WebMvcTest(TaskController.class)
@@ -78,7 +82,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    void displayTaskDetails_shouldReturnPageTaskInfoPage() throws Exception {
+    void displayTaskDetails_shouldReturnTaskInfoPage() throws Exception {
 
         Task entityFromRepository = Task.builder().id(1L).build();
         ResponseTaskDto responseTaskDto = ResponseTaskDto.builder()
@@ -121,7 +125,7 @@ public class TaskControllerTest {
     @Test
     void saveNewTaskFromForm_shouldSaveNewTaskWhenValidationSuccess() throws Exception {
 
-        final String dateTimeStr = "2026-12-31T23:59:59";
+        final String correctDateTimeStr = "2026-12-31T23:59:59";
 
         when(taskMapper.fromCreateTaskDtoToEntity(any(CreateTaskDto.class)))
                 .thenReturn(Task.builder().build());
@@ -131,7 +135,7 @@ public class TaskControllerTest {
                 .param("title","example Title")
                 .param("description", "Example Description")
                 .param("status","IN_PROGRESS")
-                .param("dueDate",dateTimeStr)
+                .param("dueDate",correctDateTimeStr)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/tasks"));
@@ -139,5 +143,63 @@ public class TaskControllerTest {
         verify(taskMapper).fromCreateTaskDtoToEntity(any());
         verify(taskService).save(any());
     }
+    @Test
+    void saveNewTaskFromForm_shouldRedirectWhenValidationHasErrors() throws Exception {
 
+        final String incorrectDateTimeStr = "2027-12-31T23:59:59";
+
+        mockMvc.perform(post("/tasks/new")
+                        .param("title", "")
+                        .param("description", "Example Description")
+                        .param("status", "IN_PROGRESS")
+                        .param("dueDate", incorrectDateTimeStr)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("create-task"))
+                .andExpect(model().attributeHasErrors("task"));
+    }
+
+    @Test
+    void deleteTaskById_shouldSuccessfullyDeleteTask() throws Exception{
+
+        doNothing().when(taskService).deleteById(any(Long.class));
+
+        mockMvc.perform(post("/tasks/delete/{id}",1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/tasks"))
+                .andExpect(model().hasNoErrors());
+
+        verify(taskService).deleteById(any());
+    }
+
+    @Test
+    void deleteTaskById_shouldThrowExcWhenPathVariableIncorrect() throws Exception {
+
+        mockMvc.perform(post("/tasks/delete/{id}", "incorrect!!"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("errors/common-error"))
+                .andExpect(model().attributeExists("statusCode", "errorTitle", "errorMessage"));
+    }
+
+    @Test
+    void editTask_shouldEditTask() throws Exception{
+
+        when(taskMapper.fromEditTaskDtoToEntity(any(EditTaskDto.class)))
+                .thenReturn(Task.builder().id(1L).build());
+        doNothing().when(taskService).save(any(Task.class));
+
+        mockMvc.perform(post("/tasks/edit")
+                        .with(csrf())
+                        .param("id",TASK_ID.toString())
+                        .param("title", "tITLE")
+                        .param("description","description")
+                        .param("createdAt",LocalDateTime.now().toString())
+                        .param("status",Status.NEW.toString())
+                        .param("dueDate",LocalDateTime.now().plusMonths(3).toString()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/tasks"));
+
+        verify(taskMapper).fromEditTaskDtoToEntity(any(EditTaskDto.class));
+        verify(taskService).save(any(Task.class));
+    }
 }
