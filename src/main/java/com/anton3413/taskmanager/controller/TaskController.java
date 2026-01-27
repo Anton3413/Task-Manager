@@ -8,21 +8,15 @@ import com.anton3413.taskmanager.dto.task.TaskSummaryDto;
 import com.anton3413.taskmanager.mapper.TaskMapper;
 import com.anton3413.taskmanager.model.Status;
 import com.anton3413.taskmanager.model.Task;
-import com.anton3413.taskmanager.repository.TaskRepository;
 import com.anton3413.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.DataSource;
-import java.security.Principal;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -37,12 +31,6 @@ public class TaskController {
     public Status[] addStatuses(){
         return Status.values();
     }
-
-    @ModelAttribute("currentUser")
-    public Principal currentUser(Principal principal) {
-        return principal;
-    }
-
     @GetMapping
     public String displayAllTasks(Model model,
                                   @RequestParam(name = "sortField",defaultValue = "id") String sortField,

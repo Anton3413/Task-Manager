@@ -26,13 +26,19 @@ public class LoginController {
     private final UserService userService;
 
     @GetMapping("/login")
-    String displayLoginPage(){
+    String displayLoginPage(Authentication authentication){
+        if(authentication != null){
+            return "redirect:/logout";
+        }
         return "login";
     }
 
     @GetMapping("/registration")
-    String displayRegistrationPage(Model model){
+    String displayRegistrationPage(Model model, Authentication authentication){
 
+        if(authentication != null){
+            return "redirect:/logout";
+        }
         model.addAttribute("userDto", CreateUserDto.builder().build());
         return "registration";
     }
@@ -59,6 +65,6 @@ public class LoginController {
     String displayLogoutPage(Authentication authentication){
         if (authentication == null) {
             return "redirect:/login";
-        }else return "logout";
+        } else return "logout";
     }
 }

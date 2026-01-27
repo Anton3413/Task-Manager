@@ -32,6 +32,7 @@ public class TaskMapper {
                 .dueDate(task.getDueDate())
                 .build();
     }
+
     public Task fromEditTaskDtoToEntity(EditTaskDto dto) {
         return Task.builder()
                 .id(dto.getId())
@@ -41,6 +42,7 @@ public class TaskMapper {
                 .dueDate(dto.getDueDate())
                 .build();
     }
+
     public ResponseTaskDto fromEntityToResponseTaskDto(Task entity) {
         return ResponseTaskDto.builder()
                 .id(entity.getId())
@@ -51,6 +53,7 @@ public class TaskMapper {
                 .status(entity.getStatus())
                 .build();
     }
+
     public TaskSummaryDto fromEntityToTaskSummaryDto(Task task) {
         return TaskSummaryDto.builder()
                 .id(task.getId())
