@@ -35,7 +35,6 @@ public class LoginController {
 
     @GetMapping("/registration")
     String displayRegistrationPage(Model model, Authentication authentication){
-
         if(authentication != null){
             return "redirect:/logout";
         }
