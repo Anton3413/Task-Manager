@@ -103,7 +103,8 @@ public class LoginControllerTest {
         verify(userService).save(any());
     }
 
-    /*void createNewUser_shouldReturnToPreviousPageWithValidationErrorMessages() throws Exception {
+    @Test
+    void createNewUser_shouldReturnToPreviousPageWithValidationErrorMessages() throws Exception {
         mockMvc.perform(post("/registration")
                 .with(csrf())
                         .param("username","example123")
@@ -112,7 +113,8 @@ public class LoginControllerTest {
                         .param("confirmPassword", "qwerty123!12345"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("registration"))
-    }*/
+                .andExpect(model().errorCount(1));
+    }
 
     @Test
     void displayLogoutPage_shouldReturnLogoutPageWhenUserLoggedIn() throws Exception {

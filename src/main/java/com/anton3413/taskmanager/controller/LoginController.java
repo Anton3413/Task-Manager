@@ -46,7 +46,7 @@ public class LoginController {
     String createNewUser(@Valid @ModelAttribute("userDto") CreateUserDto userDto, BindingResult result,
                          RedirectAttributes attributes){
         if(result.hasErrors()){
-            return "/registration";
+            return "registration";
         }
 
         User newUser = userMapper.fromCreateUserDtoToEntity(userDto);
