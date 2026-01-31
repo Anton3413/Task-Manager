@@ -61,7 +61,6 @@ public class TaskControllerTest {
                 .andExpect(view().name("tasks"));
     }
 
-
     @Test
     void displayAllTasks_shouldPerformsCorrectlyEvenWithIncorrectParams() throws Exception {
         Task task = Task.builder().id(TASK_ID).build();
@@ -142,6 +141,7 @@ public class TaskControllerTest {
         verify(taskMapper).fromCreateTaskDtoToEntity(any());
         verify(taskService).save(any());
     }
+
     @Test
     void saveNewTaskFromForm_shouldRedirectWhenValidationHasErrors() throws Exception {
 

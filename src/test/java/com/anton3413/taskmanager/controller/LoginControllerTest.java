@@ -32,7 +32,6 @@ public class LoginControllerTest {
 
     @MockitoBean
     private UserMapper userMapper;
-
     @MockitoBean
     private PasswordEncoder passwordEncoder;
     @MockitoBean
@@ -41,7 +40,6 @@ public class LoginControllerTest {
     final Authentication auth = new UsernamePasswordAuthenticationToken(
             "user", "pass", List.of());
 
-
     @Test
     void displayLoginPage_shouldReturnLoginPageWhenUserNotLoggedIn() throws Exception {
 
@@ -49,6 +47,7 @@ public class LoginControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("login"));
     }
+
     @Test
     void displayLoginPage_shouldRedirectToLogoutWhenUserAlreadyLoggedIn() throws Exception {
         mockMvc.perform(get("/login")
