@@ -22,11 +22,13 @@
     font-size: 0.85rem;
     transition: all 0.3s ease;
 }
+
 .btn-login-main:hover {
     background-color: #0bacce;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(13, 202, 240, 0.2);
 }
+
 .rounded-circle.bg-white {
     width: 45px;
     height: 45px;
@@ -35,9 +37,11 @@
     justify-content: center;
     font-size: 1.2rem;
 }
+
 .text-decoration-none.small {
     transition: color 0.2s;
 }
+
 .text-decoration-none.small:hover {
     color: #1e2b37 !important;
 }

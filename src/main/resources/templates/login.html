@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Welcome | Task Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -20,14 +20,17 @@
         <div class="row justify-content-center align-items-center g-5">
 
             <div class="col-lg-5 d-none d-lg-block">
-                <h1 class="fw-bold mb-3" style="color: #1e2b37;">Stay organized,<br><span style="color: #0dcaf0;">stay productive.</span></h1>
+                <h1 class="fw-bold mb-3" style="color: #1e2b37;">Stay organized,<br><span style="color: #0dcaf0;">stay productive.</span>
+                </h1>
                 <p class="text-muted mb-4" style="font-size: 1.1rem;">
                     Welcome to your workspace. Organize your tasks, track your deadlines, and achieve your goals.
                 </p>
                 <div class="d-flex gap-3">
                     <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-check-lg"></i></div>
-                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-lightning-charge-fill"></i></div>
-                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-clock-history"></i></div>
+                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i
+                            class="bi bi-lightning-charge-fill"></i></div>
+                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-clock-history"></i>
+                    </div>
                 </div>
             </div>
 
@@ -40,23 +43,23 @@
                         </div>
 
                         <div class="error-container">
-                            <div th:if="${param.error}" class="login-error-message">
+                            <div class="login-error-message" th:if="${param.error}">
                                 <i class="bi bi-exclamation-circle me-1"></i> Invalid username or password
                             </div>
 
-                            <div th:if="${message}" class="login-success-message">
+                            <div class="login-success-message" th:if="${message}">
                                 <i class="bi bi-check-circle-fill me-1"></i>
                                 <span th:text="${message}">Registration was successful!</span>
                             </div>
                         </div>
 
-                        <form th:action="@{/login}" method="post">
+                        <form method="post" th:action="@{/login}">
                             <div class="mb-3">
                                 <label class="details-label mb-2">Username</label>
                                 <div class="input-group login-input-group">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                    <input type="text" name="username" class="form-control"
-                                           placeholder="John Doe" required >
+                                    <input class="form-control" name="username" placeholder="John Doe"
+                                           required type="text">
                                 </div>
                             </div>
 
@@ -64,12 +67,12 @@
                                 <label class="details-label mb-2">Password</label>
                                 <div class="input-group login-input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input type="password" name="password" class="form-control"
-                                           placeholder="******" required>
+                                    <input class="form-control" name="password" placeholder="******"
+                                           required type="password">
                                 </div>
                             </div>
                             <div class="d-grid mt-4">
-                                <button type="submit" class="btn-login-main">
+                                <button class="btn-login-main" type="submit">
                                     Sign In <i class="bi bi-arrow-right ms-2"></i>
                                 </button>
                             </div>
@@ -77,7 +80,8 @@
 
                         <div class="text-center login-footer-link">
                             <span class="small text-muted">New user?</span>
-                            <a th:href="@{/registration}" class="text-decoration-none small fw-bold ms-1" style="color: #0dcaf0;">
+                            <a class="text-decoration-none small fw-bold ms-1" style="color: #0dcaf0;"
+                               th:href="@{/registration}">
                                 Create account
                             </a>
                         </div>

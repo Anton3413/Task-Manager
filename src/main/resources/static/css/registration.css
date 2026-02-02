@@ -1,5 +1,5 @@
 html {
-    scrollbar-gutter: stable; /* Фикс съезда страницы на полпикселя */
+    scrollbar-gutter: stable;
 }
 .main-content {
     display: flex;
@@ -9,11 +9,13 @@ html {
     padding-top: 20px !important;
     padding-bottom: 20px !important;
 }
+
 .card.task-card {
     border-radius: 1rem;
     background: #ffffff;
     max-width: 100%;
 }
+
 .card-header-accent {
     height: 5px;
     background: #1e2b37;
@@ -32,6 +34,7 @@ html {
     justify-content: center;
     overflow: hidden;
 }
+
 .error-bubble {
     background-color: #fff5f5;
     border: 1px solid #feb2b2;
@@ -40,6 +43,7 @@ html {
     width: 100%;
     animation: fadeInError 0.3s ease-out;
 }
+
 .error-bubble ul {
     list-style: none;
     padding: 0;

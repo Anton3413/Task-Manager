@@ -2,7 +2,6 @@ package com.anton3413.taskmanager.validation.validator;
 
 import com.anton3413.taskmanager.dto.task.CreateTaskDto;
 import com.anton3413.taskmanager.dto.task.EditTaskDto;
-
 import com.anton3413.taskmanager.service.TaskService;
 import com.anton3413.taskmanager.validation.annotation.UniqueTaskTitle;
 import jakarta.validation.ConstraintValidator;

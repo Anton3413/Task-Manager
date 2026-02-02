@@ -13,11 +13,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,18 +25,14 @@ public class TaskServiceImplTest {
     private static final String USERNAME = "John_doe";
     private static final Long TASK_ID = 1L;
     private static final Long USERNAME_ID = 1L;
-
-    @Mock
-    private TaskRepository taskRepository;
-
-    @Mock
-    private UserService userService;
-
-    @Mock
-    private SecurityService securityService;
-
     @InjectMocks
     TaskServiceImpl taskService;
+    @Mock
+    private TaskRepository taskRepository;
+    @Mock
+    private UserService userService;
+    @Mock
+    private SecurityService securityService;
 
     @Test
     void findById_ShouldReturnTask_WhenTaskExistsAndBelongsToUser() {
@@ -186,12 +181,12 @@ public class TaskServiceImplTest {
         when(taskRepository.findTaskByTitleIgnoreCaseAndUser_Username(taskName, USERNAME))
                 .thenReturn(Optional.of(expectedTask));
 
-      Optional<Task> result = (taskService.findTaskByTitleIgnoreCase(taskName));
-      assertTrue(result.isPresent());
-      assertEquals(expectedTask.getId(), result.get().getId());
+        Optional<Task> result = (taskService.findTaskByTitleIgnoreCase(taskName));
+        assertTrue(result.isPresent());
+        assertEquals(expectedTask.getId(), result.get().getId());
 
-      verify(securityService).getCurrentUsername();
-      verify(taskRepository).findTaskByTitleIgnoreCaseAndUser_Username(taskName, USERNAME);
+        verify(securityService).getCurrentUsername();
+        verify(taskRepository).findTaskByTitleIgnoreCaseAndUser_Username(taskName, USERNAME);
     }
 
     @Test
@@ -211,9 +206,9 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    void updateStatus_shouldSuccessfullyUpdateTaskStatus(){
+    void updateStatus_shouldSuccessfullyUpdateTaskStatus() {
 
-       final Task task = Task.builder().id(TASK_ID).build();
+        final Task task = Task.builder().id(TASK_ID).build();
         String status = Status.IN_PROGRESS.name();
         when(securityService.getCurrentUsername()).thenReturn(USERNAME);
         when(taskRepository.findByIdAndUser_Username(TASK_ID, USERNAME))

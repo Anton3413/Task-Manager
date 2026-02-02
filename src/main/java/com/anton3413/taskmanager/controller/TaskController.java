@@ -55,10 +55,10 @@ public class TaskController {
 
     @GetMapping({"/{id}"})
     public String displayTaskDetailsPage(@PathVariable(required = false) Long id, Model model){
-
         if(id == null){
             return "redirect:/tasks";
         }
+
        ResponseTaskDto taskDto =  taskMapper.fromEntityToResponseTaskDto(
                taskService.findById(id));
 
@@ -74,11 +74,14 @@ public class TaskController {
     }
 
     @PostMapping("/new")
-    public String saveNewTaskFromForm(@Valid @ModelAttribute("task") CreateTaskDto createTaskDto, BindingResult result){
+    public String saveNewTaskFromForm(@Valid @ModelAttribute("task") CreateTaskDto createTaskDto,
+                                      BindingResult result){
         if(result.hasErrors()){
             return "create-task";
         }
+
         taskService.save(taskMapper.fromCreateTaskDtoToEntity(createTaskDto));
+
         return "redirect:/tasks";
     }
 
@@ -102,19 +105,19 @@ public class TaskController {
     @PostMapping("/edit")
     public String editTask(@Valid @ModelAttribute("task") EditTaskDto editTaskDto,
                            BindingResult bindingResult){
-
         if(bindingResult.hasErrors()){
             return "edit-task";
         }
+
         Task task = taskMapper.fromEditTaskDtoToEntity(editTaskDto);
         taskService.save(task);
+
         return "redirect:/tasks";
     }
 
     @PostMapping("/updateStatus")
     public String editTaskStatus(@RequestParam("taskId") Long id,
                                  @RequestParam("status") String status){
-
         taskService.updateStatus(id,status);
 
         return "redirect:/tasks";

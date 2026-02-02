@@ -18,9 +18,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(LoginController.class)
@@ -87,7 +89,7 @@ public class LoginControllerTest {
 
         mockMvc.perform(post("/registration")
                         .with(csrf())
-                        .param("username","example123")
+                        .param("username", "example123")
                         .param("email", "example@gmail.com")
                         .param("password", "qwerty123!")
                         .param("confirmPassword", "qwerty123!"))
@@ -105,8 +107,8 @@ public class LoginControllerTest {
     @Test
     void createNewUser_shouldReturnToPreviousPageWithValidationErrorMessages() throws Exception {
         mockMvc.perform(post("/registration")
-                .with(csrf())
-                        .param("username","example123")
+                        .with(csrf())
+                        .param("username", "example123")
                         .param("email", "example@gmail.com")
                         .param("password", "qwerty123!")
                         .param("confirmPassword", "qwerty123!12345"))
@@ -118,7 +120,7 @@ public class LoginControllerTest {
     @Test
     void displayLogoutPage_shouldReturnLogoutPageWhenUserLoggedIn() throws Exception {
         mockMvc.perform(get("/logout")
-                .principal(auth))
+                        .principal(auth))
                 .andExpect(status().isOk())
                 .andExpect(view().name("logout"));
     }

@@ -19,6 +19,7 @@ public class DataInitializer implements CommandLineRunner {
 
     private final TaskService taskService;
     private final UserService userService;
+
     private final String EXAMPLE_TASK_DESCRIPTION = """
     This is a demonstration task. It is automatically initialized \
     when the application starts. \
@@ -35,6 +36,7 @@ public class DataInitializer implements CommandLineRunner {
         if (userService.existsByUsername(username)) {
             return;
         }
+
         User user = User.builder()
                 .username(username)
                 .password("{noop}123")

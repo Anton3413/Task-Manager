@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
 
     private final UserService userService;
+
     @Override
     public boolean isValid(String password, ConstraintValidatorContext constraintValidatorContext) {
         return !userService.existsByUsername(password);

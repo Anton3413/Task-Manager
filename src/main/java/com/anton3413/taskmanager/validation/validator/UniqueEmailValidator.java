@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
 
     private final UserService userService;
+
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
         return !userService.existsByEmail(email);

@@ -8,22 +8,22 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserMapperTest {
-    private UserMapper userMapper;
     private static final String USERNAME = "Demo_title";
     private static final String EMAIL = "example@gmail.com";
+    private UserMapper userMapper;
 
     @BeforeEach
-    void initUserMapper(){
+    void initUserMapper() {
         userMapper = new UserMapper();
     }
 
     @Test
-    void fromCreateUserDtoToEntity(){
+    void fromCreateUserDtoToEntity() {
         CreateUserDto sourceObject = CreateUserDto.builder()
                 .username(USERNAME).email(EMAIL)
                 .build();
@@ -32,6 +32,6 @@ public class UserMapperTest {
 
         assertEquals(sourceObject.getEmail(), targetObject.getEmail());
         assertEquals(sourceObject.getUsername(), targetObject.getUsername());
-        assertThat(targetObject.getCreatedAt()).isCloseTo(LocalDateTime.now(),within(2, ChronoUnit.SECONDS));
+        assertThat(targetObject.getCreatedAt()).isCloseTo(LocalDateTime.now(), within(2, ChronoUnit.SECONDS));
     }
 }

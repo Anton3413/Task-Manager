@@ -31,14 +31,15 @@ public class UserServiceImpl implements UserService {
     public boolean existsByUsername(String username) {
       return userRepository.existsUserByUsername(username);
     }
+
     public boolean existsByEmail(String email){
       return userRepository.existsByEmail(email);
     }
 
     @Transactional
-   public User save(User user){
+    public User save(User user){
       return userRepository.save(user);
-   }
+    }
 
     @Override
     public User findByUsername(String username) {

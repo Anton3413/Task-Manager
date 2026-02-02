@@ -30,20 +30,20 @@ public class LoginControllerIntegrationTest extends BaseIT {
     PasswordEncoder passwordEncoder;
 
     @Test
-    void createNewUser_shouldSaveNewUserWithoutErrors() throws Exception{
+    void createNewUser_shouldSaveNewUserWithoutErrors() throws Exception {
 
         mockMvc.perform(post("/registration")
-                .with(csrf())
-                .param("username", USERNAME)
-                .param("email", EMAIL)
-                .param("password", PASSWORD)
-                .param("confirmPassword", PASSWORD))
+                        .with(csrf())
+                        .param("username", USERNAME)
+                        .param("email", EMAIL)
+                        .param("password", PASSWORD)
+                        .param("confirmPassword", PASSWORD))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login"))
                 .andExpect(flash().attributeCount(2));
 
-      String encodedPassword = userRepository.findUserByUsername(USERNAME).get().getPassword();
+        String encodedPassword = userRepository.findUserByUsername(USERNAME).get().getPassword();
 
-      assertTrue(passwordEncoder.matches(PASSWORD, encodedPassword));
+        assertTrue(passwordEncoder.matches(PASSWORD, encodedPassword));
     }
 }

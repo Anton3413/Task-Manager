@@ -7,13 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
@@ -28,7 +29,7 @@ public class UserServiceImplTest {
     private UserServiceImpl userService;
 
     @Test
-    void shouldReturnUserDetailsWhenUserExists(){
+    void shouldReturnUserDetailsWhenUserExists() {
 
         User user = User.builder()
                 .username(USERNAME).password(PASSWORD)
@@ -48,7 +49,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenUserDoesNotExists(){
+    void shouldThrowExceptionWhenUserDoesNotExists() {
         when(userRepository.findUserByUsername(USERNAME)).thenReturn(Optional.empty());
 
         assertThrows(UsernameNotFoundException.class, () -> userService.loadUserByUsername(USERNAME));
@@ -56,17 +57,17 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void shouldReturnTrueWhenUserExists(){
+    void shouldReturnTrueWhenUserExists() {
         when(userRepository.existsUserByUsername(USERNAME)).thenReturn(true);
 
-       boolean result = userService.existsByUsername(USERNAME);
+        boolean result = userService.existsByUsername(USERNAME);
 
-       assertTrue(result);
-       verify(userRepository).existsUserByUsername(USERNAME);
+        assertTrue(result);
+        verify(userRepository).existsUserByUsername(USERNAME);
     }
 
     @Test
-    void shouldReturnFalseWhenUserDoesntExist(){
+    void shouldReturnFalseWhenUserDoesntExist() {
         when(userRepository.existsUserByUsername(USERNAME)).thenReturn(false);
 
         boolean result = userService.existsByUsername(USERNAME);
@@ -90,7 +91,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void saveMethodShouldReturnCreatedUser(){
+    void saveMethodShouldReturnCreatedUser() {
         User userToSave = User.builder().username("new_user").build();
         User savedUser = User.builder().id(1L).username("new_user").build();
 
@@ -103,7 +104,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void returnUserWithoutException(){
+    void returnUserWithoutException() {
 
         User user = User.builder()
                 .id(1L)
@@ -119,7 +120,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void throwsExceptionWhenUserNotFoundByUsername(){
+    void throwsExceptionWhenUserNotFoundByUsername() {
 
         when(userRepository.findUserByUsername(USERNAME)).thenReturn(Optional.empty());
 

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Goodbye | Task Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -28,7 +28,8 @@
                 </p>
                 <div class="d-flex gap-3">
                     <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-cup-hot"></i></div>
-                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-moon-stars-fill"></i></div>
+                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-moon-stars-fill"></i>
+                    </div>
                     <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-check2-all"></i></div>
                 </div>
             </div>
@@ -38,23 +39,24 @@
                     <div class="card-body p-4 p-md-5">
                         <div class="text-center mb-4">
                             <h3 class="fw-bold m-0" style="color: #1e2b37;">Sign Out</h3>
-                            <div class="mx-auto mt-3" style="width: 60px; height: 3px; background: #0dcaf0; border-radius: 2px;"></div>
+                            <div class="mx-auto mt-3"
+                                 style="width: 60px; height: 3px; background: #0dcaf0; border-radius: 2px;"></div>
                         </div>
 
                         <p class="text-center text-muted mb-4" style="font-size: 0.95rem;">
                             Ready to end your session? <br>Don't worry, we've saved your work.
                         </p>
 
-                        <form th:action="@{/logout}" method="post">
+                        <form method="post" th:action="@{/logout}">
                             <div class="d-grid">
-                                <button type="submit" class="btn-login-main">
+                                <button class="btn-login-main" type="submit">
                                     Confirm Logout <i class="bi bi-door-open ms-2"></i>
                                 </button>
                             </div>
                         </form>
 
                         <div class="text-center mt-4">
-                            <a th:href="@{/tasks}" class="text-decoration-none small fw-bold" style="color: #adb5bd;">
+                            <a class="text-decoration-none small fw-bold" style="color: #adb5bd;" th:href="@{/tasks}">
                                 <i class="bi bi-arrow-left me-1"></i> Return to tasks
                             </a>
                         </div>

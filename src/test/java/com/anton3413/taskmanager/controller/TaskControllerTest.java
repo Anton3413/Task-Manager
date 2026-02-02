@@ -18,30 +18,28 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TaskController.class)
 @AutoConfigureMockMvc()
 public class TaskControllerTest {
 
+    private static final Long TASK_ID = 1L;
     @Autowired
     MockMvc mockMvc;
-
     @MockitoBean
     TaskService taskService;
-
     @MockitoBean
     TaskMapper taskMapper;
-
-    private static final Long TASK_ID = 1L;
 
     @Test
     void displayAllTasks_shouldPerformsCorrectly() throws Exception {
@@ -51,12 +49,12 @@ public class TaskControllerTest {
         when(taskMapper.fromEntityToTaskSummaryDto(task)).thenReturn(TaskSummaryDto.builder().build());
 
         mockMvc.perform(get("/tasks")
-                        .param("sortField","id")
+                        .param("sortField", "id")
                         .param("sortDir", "asc"))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("tasks",hasSize(1)))
-                .andExpect(model().attribute("sortField","id"))
-                .andExpect(model().attribute("sortDir","asc"))
+                .andExpect(model().attribute("tasks", hasSize(1)))
+                .andExpect(model().attribute("sortField", "id"))
+                .andExpect(model().attribute("sortDir", "asc"))
                 .andExpect(model().attributeExists("reverseSortDir"))
                 .andExpect(view().name("tasks"));
     }
@@ -69,12 +67,12 @@ public class TaskControllerTest {
         when(taskMapper.fromEntityToTaskSummaryDto(task)).thenReturn(TaskSummaryDto.builder().build());
 
         mockMvc.perform(get("/tasks")
-                        .param("sortField","incorrect")
+                        .param("sortField", "incorrect")
                         .param("sortDir", "error!"))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("tasks",hasSize(1)))
-                .andExpect(model().attribute("sortField","id"))
-                .andExpect(model().attribute("sortDir","asc"))
+                .andExpect(model().attribute("tasks", hasSize(1)))
+                .andExpect(model().attribute("sortField", "id"))
+                .andExpect(model().attribute("sortDir", "asc"))
                 .andExpect(model().attributeExists("reverseSortDir"))
                 .andExpect(view().name("tasks"));
     }
@@ -90,7 +88,7 @@ public class TaskControllerTest {
         when(taskService.findById(TASK_ID)).thenReturn(entityFromRepository);
         when(taskMapper.fromEntityToResponseTaskDto(entityFromRepository)).thenReturn(responseTaskDto);
 
-        mockMvc.perform(get("/tasks/{id}",TASK_ID))
+        mockMvc.perform(get("/tasks/{id}", TASK_ID))
                 .andExpect(model().attributeExists("task"))
                 .andExpect(view().name("task-details"));
 
@@ -103,8 +101,8 @@ public class TaskControllerTest {
         mockMvc.perform(get("/tasks/wrong-id"))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> {
-                    assertTrue(result.getResolvedException()
-                            instanceof MethodArgumentTypeMismatchException);}
+                            assertInstanceOf(MethodArgumentTypeMismatchException.class, result.getResolvedException());
+                        }
                 )
                 .andExpect(model().attributeExists("statusCode"))
                 .andExpect(model().attributeExists("errorTitle"))
@@ -113,7 +111,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    void displayTaskCreatingPage_performsCorrectly() throws Exception{
+    void displayTaskCreatingPage_performsCorrectly() throws Exception {
         mockMvc.perform(get("/tasks/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-task"))
@@ -130,11 +128,11 @@ public class TaskControllerTest {
         doNothing().when(taskService).save(any(Task.class));
 
         mockMvc.perform(post("/tasks/new")
-                .param("title","example Title")
-                .param("description", "Example Description")
-                .param("status","IN_PROGRESS")
-                .param("dueDate",correctDateTimeStr)
-                .with(csrf()))
+                        .param("title", "example Title")
+                        .param("description", "Example Description")
+                        .param("status", "IN_PROGRESS")
+                        .param("dueDate", correctDateTimeStr)
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/tasks"));
 
@@ -159,11 +157,11 @@ public class TaskControllerTest {
     }
 
     @Test
-    void deleteTaskById_shouldSuccessfullyDeleteTask() throws Exception{
+    void deleteTaskById_shouldSuccessfullyDeleteTask() throws Exception {
 
         doNothing().when(taskService).deleteById(any(Long.class));
 
-        mockMvc.perform(post("/tasks/delete/{id}",1))
+        mockMvc.perform(post("/tasks/delete/{id}", 1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/tasks"))
                 .andExpect(model().hasNoErrors());
@@ -182,7 +180,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    void editTask_shouldEditTask() throws Exception{
+    void editTask_shouldEditTask() throws Exception {
 
         when(taskMapper.fromEditTaskDtoToEntity(any(EditTaskDto.class)))
                 .thenReturn(Task.builder().id(1L).build());
@@ -190,12 +188,12 @@ public class TaskControllerTest {
 
         mockMvc.perform(post("/tasks/edit")
                         .with(csrf())
-                        .param("id",TASK_ID.toString())
+                        .param("id", TASK_ID.toString())
                         .param("title", "tITLE")
-                        .param("description","description")
-                        .param("createdAt",LocalDateTime.now().toString())
-                        .param("status",Status.NEW.toString())
-                        .param("dueDate",LocalDateTime.now().plusMonths(3).toString()))
+                        .param("description", "description")
+                        .param("createdAt", LocalDateTime.now().toString())
+                        .param("status", Status.NEW.toString())
+                        .param("dueDate", LocalDateTime.now().plusMonths(3).toString()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/tasks"));
 
@@ -212,12 +210,12 @@ public class TaskControllerTest {
 
         mockMvc.perform(post("/tasks/edit")
                         .with(csrf())
-                        .param("id",TASK_ID.toString())
+                        .param("id", TASK_ID.toString())
                         .param("title", "title")
-                        .param("description","description")
-                        .param("createdAt",LocalDateTime.now().toString())
-                        .param("status",Status.NEW.toString())
-                        .param("dueDate",LocalDateTime.now().minusMonths(3).toString()))
+                        .param("description", "description")
+                        .param("createdAt", LocalDateTime.now().toString())
+                        .param("status", Status.NEW.toString())
+                        .param("dueDate", LocalDateTime.now().minusMonths(3).toString()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("edit-task"))
                 .andExpect(model().hasErrors());
@@ -238,6 +236,6 @@ public class TaskControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/tasks"));
 
-        verify(taskService, times(1)).updateStatus(anyLong(),anyString());
+        verify(taskService, times(1)).updateStatus(anyLong(), anyString());
     }
 }

@@ -24,6 +24,7 @@ public class TaskServiceImpl  implements TaskService {
     private final TaskRepository taskRepository;
     private final UserService userService;
     private final SecurityService securityService;
+
     private final String EXCEPTION_MESSAGE_ENTITY_NOT_FOUND = "The task with id %s doesn't exist," +
             " might have been removed, or is temporarily unavailable.";
 

@@ -38,7 +38,9 @@ public class LoginController {
         if(authentication != null){
             return "redirect:/logout";
         }
+
         model.addAttribute("userDto", CreateUserDto.builder().build());
+
         return "registration";
     }
 

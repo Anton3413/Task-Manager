@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class FutureOrPresentValidator implements ConstraintValidator<FutureOrPresent, LocalDateTime> {
+
     @Override
     public boolean isValid(LocalDateTime localDateTime, ConstraintValidatorContext constraintValidatorContext) {
         if (localDateTime == null) {

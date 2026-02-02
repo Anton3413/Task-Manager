@@ -28,8 +28,10 @@
                 </p>
                 <div class="d-flex gap-3">
                     <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-check-lg"></i></div>
-                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-lightning-charge-fill"></i></div>
-                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-clock-history"></i></div>
+                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i
+                            class="bi bi-lightning-charge-fill"></i></div>
+                    <div class="p-2 rounded-circle bg-white shadow-sm text-info"><i class="bi bi-clock-history"></i>
+                    </div>
                 </div>
             </div>
 
@@ -58,7 +60,8 @@
                                 <div class="input-group login-input-group"
                                      th:classappend="${#fields.hasErrors('username')} ? 'input-error-state'">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                    <input type="text" th:field="*{username}" class="form-control" placeholder="User_123">
+                                    <input type="text" th:field="*{username}" class="form-control"
+                                           placeholder="User_123">
                                 </div>
                             </div>
 
@@ -67,7 +70,8 @@
                                 <div class="input-group login-input-group"
                                      th:classappend="${#fields.hasErrors('email')} ? 'input-error-state'">
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                    <input type="email" th:field="*{email}" class="form-control" placeholder="mail@example.com">
+                                    <input type="email" th:field="*{email}" class="form-control"
+                                           placeholder="mail@example.com">
                                 </div>
                             </div>
 
@@ -76,7 +80,8 @@
                                 <div class="input-group login-input-group"
                                      th:classappend="${#fields.hasErrors('password')} ? 'input-error-state'">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input type="password" th:field="*{password}" class="form-control" placeholder="••••••">
+                                    <input type="password" th:field="*{password}" class="form-control"
+                                           placeholder="••••••">
                                 </div>
                             </div>
 
@@ -85,7 +90,8 @@
                                 <div class="input-group login-input-group"
                                      th:classappend="${#fields.hasErrors('confirmPassword')} ? 'input-error-state'">
                                     <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
-                                    <input type="password" th:field="*{confirmPassword}" class="form-control" placeholder="••••••">
+                                    <input type="password" th:field="*{confirmPassword}" class="form-control"
+                                           placeholder="••••••">
                                 </div>
                             </div>
 
@@ -98,7 +104,8 @@
 
                         <div class="text-center login-footer-link">
                             <span class="small text-muted">Already a member?</span>
-                            <a th:href="@{/login}" class="text-decoration-none small fw-bold ms-1" style="color: #0dcaf0;">
+                            <a th:href="@{/login}" class="text-decoration-none small fw-bold ms-1"
+                               style="color: #0dcaf0;">
                                 Sign In
                             </a>
                         </div>

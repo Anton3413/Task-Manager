@@ -10,21 +10,22 @@ import com.anton3413.taskmanager.model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TaskMapperTest {
 
-    private TaskMapper taskMapper;
     private static final Long ID = 66L;
     private static final String TITLE = "Demo_title";
     private static final String DESCRIPTION = "Task description";
     private static final Status STATUS = Status.IN_PROGRESS;
     private static final LocalDateTime DUE_DATE = LocalDateTime.now().plusDays(7);
+    private TaskMapper taskMapper;
 
     @BeforeEach
     void initTaskMapper() {
@@ -48,7 +49,7 @@ public class TaskMapperTest {
     }
 
     @Test
-    void fromEntityToEditTaskDtoTest(){
+    void fromEntityToEditTaskDtoTest() {
         Task sourceObject = buildTaskEntity();
 
         EditTaskDto targetObject = taskMapper.fromEntityToEditTaskDto(sourceObject);
@@ -63,7 +64,7 @@ public class TaskMapperTest {
     }
 
     @Test
-    void fromEditTaskDtoToEntityTest(){
+    void fromEditTaskDtoToEntityTest() {
         EditTaskDto sourceObject = EditTaskDto.builder()
                 .id(ID).title(TITLE).description(DESCRIPTION)
                 .status(STATUS).dueDate(DUE_DATE)
@@ -79,7 +80,7 @@ public class TaskMapperTest {
     }
 
     @Test
-    void fromEntityToResponseTaskDto(){
+    void fromEntityToResponseTaskDto() {
         Task sourceObject = buildTaskEntity();
 
         ResponseTaskDto targetObject = taskMapper.fromEntityToResponseTaskDto(sourceObject);
@@ -93,7 +94,7 @@ public class TaskMapperTest {
     }
 
     @Test
-    void fromEntityToTaskSummaryDto(){
+    void fromEntityToTaskSummaryDto() {
 
         Task sourceObject = buildTaskEntity();
 
