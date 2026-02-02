@@ -70,4 +70,3 @@ If you want to run the application without Docker, you will need to have a Postg
     ```
 4.  Open your browser and navigate to `http://localhost:8080`.
 
----
